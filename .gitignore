@@ -1,0 +1,22 @@
+*.pdf
+*.tar
+*.tz
+
+# Data files
+data/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Output artifacts
+output/
+
+# Agent files
+.agents/
+skills-lock.json

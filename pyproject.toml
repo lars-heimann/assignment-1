@@ -1,0 +1,62 @@
+[project]
+name = "aprops-ass1"
+version = "0.1.0"
+description = "BPIC-17 Process Mining Assignment - TUM SS2026"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastparquet>=2026.3.0",
+    "ipykernel>=7.2.0",
+    "matplotlib>=3.10.8",
+    "numpy>=2.4.4",
+    "pandas>=3.0.2",
+    "pandas-stubs>=3.0.0.260204",
+    "pm4py",
+    "pyarrow>=24.0.0",
+    "pydantic>=2.13.3",
+    "scikit-learn>=1.8.0",
+    "scipy-stubs>=1.17.1.4",
+    "seaborn>=0.13.2",
+]
+
+[tool.uv.sources]
+pm4py = { git = "https://github.com/lars-heimann/pm4py.git" }
+
+[dependency-groups]
+dev = [
+    "nbconvert>=7.17.1",
+    "ruff>=0.15.11",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "F",     # pyflakes
+    "E",     # pycodestyle errors
+    "W",     # pycodestyle warnings
+    "I",     # isort
+    "UP",    # pyupgrade
+    "B",     # flake8-bugbear
+    "SIM",   # flake8-simplify
+    "RUF",   # ruff-specific rules
+]
+ignore = [
+    "E501",  # line length (handled by formatter)
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["src"]
+
+[tool.ruff.lint.per-file-ignores]
+# Jupytext percent-format notebooks: bare expressions render the value in the
+# cell output, and sys.path manipulation may precede imports.
+"notebooks/*.py" = ["B018", "E402"]
+
+[tool.basedpyright]
+typeCheckingMode = "standard"
+reportMissingTypeStubs = "none"   # pm4py ships no stubs
+reportUnusedExpression = "none"   # bare expressions render in notebook cells
+reportUnusedCallResult = "none"   # plotting calls return Axes etc. that we don't use
