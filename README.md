@@ -1,68 +1,30 @@
-# BPIC-17 Process Mining Assignment
+# BPIC-17 Process Mining Analysis
 
-TUM - Business Process Prediction, Simulation, and Optimization (Summer 2026)
+This repository contains my submission for the Business Process Prediction, Simulation, and Optimization course (Summer 2026) at TUM.
 
-## What
+## Overview
+The goal of this assignment is to analyze the BPIC-17 event log, which captures loan applications from a Dutch financial institute. I've set up a full pipeline here to do everything from basic log statistics to process discovery, metrics calculation, decision mining, and concept drift detection.
 
-Individual assignment analyzing the [BPIC-17 event log](https://ais.win.tue.nl/bpi/2017/challenge.html): event log analysis, process discovery, conformance checking, decision mining, and one advanced analysis (concept drift detection).
+## Structure
+- `src/` contains all the Python code for data loading, calculating metrics, plotting, and the advanced analysis logic.
+- `notebooks/analysis.ipynb` is where everything is pulled together and executed.
+- `docs/` has the original assignment spec.
 
-Full assignment spec: [docs/assignment.md](docs/assignment.md)
-Task checklist: [TODO.md](TODO.md)
+## Running the Code
+The project uses `uv` for dependency management.
 
-## Project Structure
+1. **Install dependencies:**
+   ```bash
+   uv sync
+   ```
+   Note: I'm using `pm4py` as an editable dependency directly from my GitHub fork because I needed to make sure it was completely reproducible. `uv sync` handles this automatically.
 
-```
-├── src/                    # Python source modules
-│   ├── config.py           # Shared constants, paths, seeds
-│   ├── data_loading.py     # XES loading with parquet caching
-│   ├── statistics.py       # Basic event log statistics
-│   ├── visualization.py    # Plotting functions
-│   ├── discovery.py        # Process discovery algorithms
-│   ├── metrics.py          # Custom simplicity metrics
-│   ├── decision_mining.py  # Decision mining on XOR gateways
-│   └── concept_drift.py    # Advanced analysis: concept drift
-├── notebooks/
-│   └── analysis.ipynb      # Main analysis notebook
-├── data/                   # Event log (gitignored)
-├── output/                 # Generated plots and models (gitignored)
-├── pm4py-source/           # Local editable pm4py clone (gitignored)
-├── docs/                   # Assignment spec and PDF
-├── pyproject.toml          # Dependencies (managed with uv)
-```
+2. **Get the Data:**
+   You'll need the original `BPI_Challenge_2017.xes.gz` file. 
+   Create a `data/` folder in the root directory and drop the `.xes.gz` file in there. The first time you run the code, it will parse the XML and cache it as a Parquet file to make subsequent runs much faster.
 
-## Setup
-
-```bash
-uv sync
-```
-
-pm4py is installed as a local editable dependency from `pm4py-source/`. This means you can modify pm4py source files directly and changes take effect without reinstalling. The clone is gitignored. To re-create it:
-
-```bash
-git clone https://github.com/process-intelligence-solutions/pm4py pm4py-source
-uv sync
-```
-
-Download the BPIC-17 event log into `data/`:
-```bash
-mkdir -p data
-# Place BPI_Challenge_2017.xes.gz in data/
-```
-
-Run the notebook:
-```bash
-cd notebooks
-uv run jupyter lab analysis.ipynb
-```
-
-## Links
-
-- pm4py docs: https://processintelligence.solutions/pm4py
-- pm4py repo: https://github.com/process-intelligence-solutions/pm4py
-- BPIC-17 challenge: https://ais.win.tue.nl/bpi/2017/challenge.html
-
-## Rules
-
-- Report max 5 pages (excl. references + appendix)
-- Include GenAI usage declaration
-- Public repo required for submission
+3. **Run the Notebook:**
+   ```bash
+   cd notebooks
+   uv run jupyter lab analysis.ipynb
+   ```
